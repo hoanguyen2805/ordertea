@@ -1,0 +1,16 @@
+*:not(i) {
+    font-family: 'Montserrat' !important;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+html {
+    scroll-behavior: smooth !important;
+}
+body{
+    padding: 0!important;
+    overflow: overlay ;
+}
