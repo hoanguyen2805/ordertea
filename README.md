@@ -1,8 +1,7 @@
-# run project
-<p>npm install</p>
-<p>npm start</p>
+# deploy project
 
-# Set port
-.env
+```shell
+npm run build
+firebase init
+firebase deploy
 ```
-PORT=8081
