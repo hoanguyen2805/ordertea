@@ -12,7 +12,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import Loading from "./loading";
-import {done_order} from '../done-order.png';
+
 const Notification = () => {
   const [pusherChannel, setPusherChannel] = useState(null);
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -78,7 +78,18 @@ const Notification = () => {
     if (pusherChannel && pusherChannel.bind) {
       pusherChannel.unbind("NEW_NOTIFICATION");
       pusherChannel.bind("NEW_NOTIFICATION", (data) => {
-        setNotifications((prevState) => [data, ...prevState]);
+        const notifyUpdate = notifications.find(nt=>nt.notification_id===data.notification_id);
+        if(notifyUpdate){
+          setNotifications( notifications.map(ob=> {
+            if(ob.notification_id===data.notification_id){
+              ob= {...data}
+            }
+            return ob;
+          }));
+        }else{
+          setNotifications((prevState) => [data, ...prevState]);
+        }
+        
         let count = countIsRead;
         if (!data.is_read) {
           count++;
@@ -146,7 +157,7 @@ const Notification = () => {
     } else {
       return (
         <>
-          <img src={done_order} alt="" />
+          <img src="/done-order.png" alt="" />
           <div className="notify-text">
             <span>
               {t("notification.order_store")} <b>{notification.store_name}</b>&nbsp; {t("notification.order_payment")}&nbsp;
@@ -241,7 +252,7 @@ const Notification = () => {
           className="notification-amount"
           style={countIsRead == 0 ? { opacity: "0" } : {}}
         >
-          <span>{countIsRead > 0 ? countIsRead : ""}</span>
+          <span>{countIsRead > 0 && countIsRead < 10 ? countIsRead : "9+"}</span>
         </div>
       </div>
       <Modal

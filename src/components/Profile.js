@@ -885,6 +885,16 @@ function genBadgeOrderStatus(status) {
                 </span>
             );
         }
+        case "PENDINGPAYMENT": {
+            return (
+                <span
+                    className="badge rounded-pill "
+                    style={{backgroundColor: "rgb(255 117 136)", padding: "5px 10px"}}
+                >
+                    {"PENDING"}
+                </span>
+            );
+        }
     }
 }
 
