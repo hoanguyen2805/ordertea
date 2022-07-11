@@ -47,7 +47,7 @@ const App = () => {
             dispatch(getUserInfo());
         }
 
-        navigator.serviceWorker.register('serviceworker.js');
+        navigator.serviceWorker.register('/service-worker.js');
 
 
     }, []);
