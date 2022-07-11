@@ -24,11 +24,12 @@ import "semantic-ui-css/semantic.min.css";
 import Swal from "sweetalert2";
 import logo from './logo.png';
 import Notification from "./components/Notification";
+import PusherBrowser from "./services/pusher-notify-browser";
 
 const App = () => {
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [showOrdererBoard, setShowOrdererBoard] = useState(false);
-
+    const [subscribeBrowserNotify, setSubscribeBrowserNotify] = useState(null);
     const {user: currentUser} = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
@@ -45,6 +46,10 @@ const App = () => {
         if (localStorage.getItem("user")) {
             dispatch(getUserInfo());
         }
+
+        navigator.serviceWorker.register('/service-worker.js');
+
+
     }, []);
 
     const countryOptions = [
@@ -71,6 +76,7 @@ const App = () => {
     };
 
     const logOut = useCallback(() => {
+        PusherBrowser.unsubscribe(currentUser.username);
         dispatch(logout());
     }, [dispatch]);
 
@@ -78,6 +84,7 @@ const App = () => {
         if (currentUser) {
             setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
             setShowOrdererBoard(currentUser.roles.includes("ROLE_ORDERER"));
+            setSubscribeBrowserNotify(true)
         } else {
             setShowAdminBoard(false);
             setShowOrdererBoard(false);
@@ -90,7 +97,15 @@ const App = () => {
         return () => {
             EventBus.remove("logout");
         };
+
     }, [currentUser, logOut]);
+
+    useEffect(() => {
+        if (!subscribeBrowserNotify && currentUser) {
+            PusherBrowser.subscribe(currentUser.username);
+        }
+    }, [subscribeBrowserNotify])
+
 
     const clearLogin = () => {
         Swal.fire(
@@ -104,185 +119,185 @@ const App = () => {
     }
 
     return (
-      <div
-        data-bs-spy="scroll"
-        data-bs-target="#menu-items"
-        data-bs-offset="0"
-        data-bs-smooth-scroll="true"
-        tabIndex="0"
-      >
-        <Router history={history}>
-          <AuthVerify logOut={clearLogin} />
-          <nav
-            className="navbar navbar-expand navbar-dark bg-dark"
-            id={"div-scrolltop"}
-          >
-            <Link to={"/"} className="navbar-brand">
-              <img src={logo} alt="nitrotech asia" width="160px" />
-            </Link>
-            <button
-              className="navbar-toggler"
-              type="button"
-              onClick={responsive}
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div
-              className={
-                isShow ? `collapse navbar-collapse pr-2` : "d-flex flex-column"
-              }
-            >
-              <div className="navbar-nav mr-auto">
-                <li className="nav-item py-0 px-0 ">
-                  <NavLink
-                    to={"/orders"}
-                    className="nav-link"
-                    activeClassName="active-link"
-                  >
+        <div
+            data-bs-spy="scroll"
+            data-bs-target="#menu-items"
+            data-bs-offset="0"
+            data-bs-smooth-scroll="true"
+            tabIndex="0"
+        >
+            <Router history={history}>
+                <AuthVerify logOut={clearLogin}/>
+                <nav
+                    className="navbar navbar-expand navbar-dark bg-dark"
+                    id={"div-scrolltop"}
+                >
+                    <Link to={"/"} className="navbar-brand">
+                        <img src={logo} alt="nitrotech asia" width="160px"/>
+                    </Link>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        onClick={responsive}
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div
+                        className={
+                            isShow ? `collapse navbar-collapse pr-2` : "d-flex flex-column"
+                        }
+                    >
+                        <div className="navbar-nav mr-auto">
+                            <li className="nav-item py-0 px-0 ">
+                                <NavLink
+                                    to={"/orders"}
+                                    className="nav-link"
+                                    activeClassName="active-link"
+                                >
                     <span className="text-light">
                       <i className="fa-solid fa-cart-shopping"></i>&nbsp;
-                      {t("menu.order")}
+                        {t("menu.order")}
                     </span>
-                  </NavLink>
-                </li>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                {showOrdererBoard && (
-                  <li className="nav-item  py-0 px-0">
-                    <NavLink
-                      to={"/restaurant-management"}
-                      className="nav-link"
-                      activeClassName="active-link"
-                    >
+                                </NavLink>
+                            </li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            {showOrdererBoard && (
+                                <li className="nav-item  py-0 px-0">
+                                    <NavLink
+                                        to={"/restaurant-management"}
+                                        className="nav-link"
+                                        activeClassName="active-link"
+                                    >
                       <span className="text-light">
                         <i className="fa fa-cog"></i>&nbsp;
-                        {t("menu.orderer_board")}
+                          {t("menu.orderer_board")}
                       </span>
-                    </NavLink>
-                  </li>
-                )}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                {showAdminBoard && (
-                  <li className="nav-item  py-0 px-0">
-                    <NavLink
-                      to={"/user-management"}
-                      className="nav-link"
-                      activeClassName="active-link"
-                    >
+                                    </NavLink>
+                                </li>
+                            )}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            {showAdminBoard && (
+                                <li className="nav-item  py-0 px-0">
+                                    <NavLink
+                                        to={"/user-management"}
+                                        className="nav-link"
+                                        activeClassName="active-link"
+                                    >
                       <span className="text-light">
                         <i className="fa fa-cog"></i>&nbsp;
-                        {t("menu.admin_board")}
+                          {t("menu.admin_board")}
                       </span>
-                    </NavLink>
-                  </li>
-                )}
-              </div>
+                                    </NavLink>
+                                </li>
+                            )}
+                        </div>
 
-              {currentUser ? (
-                <div className="navbar-nav ml-auto">
-                  <li className="nav-item py-0 px-0">
-                    <Notification></Notification>
-                  </li>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <li className="nav-item py-0 px-0">
-                    <NavLink
-                      to={"/profile"}
-                      className="nav-link"
-                      activeClassName="active-link"
-                    >
+                        {currentUser ? (
+                            <div className="navbar-nav ml-auto">
+                                <li className="nav-item py-0 px-0">
+                                    <Notification></Notification>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <li className="nav-item py-0 px-0">
+                                    <NavLink
+                                        to={"/profile"}
+                                        className="nav-link"
+                                        activeClassName="active-link"
+                                    >
                       <span className="text-light">
                         <i className="fa-solid fa-user"></i>&nbsp;
-                        {currentUser.username}
+                          {currentUser.username}
                       </span>
-                    </NavLink>
-                  </li>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <li className="nav-item py-0 px-0">
-                    <NavLink
-                      to={"/login"}
-                      className="nav-link"
-                      activeClassName="active-link"
-                      onClick={logOut}
-                    >
+                                    </NavLink>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <li className="nav-item py-0 px-0">
+                                    <NavLink
+                                        to={"/login"}
+                                        className="nav-link"
+                                        activeClassName="active-link"
+                                        onClick={logOut}
+                                    >
                       <span className="text-light">
                         <i className="fa-solid fa-right-from-bracket"></i>&nbsp;
-                        {t("menu.log_out")}
+                          {t("menu.log_out")}
                       </span>
-                    </NavLink>
-                  </li>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-              ) : (
-                <div className="navbar-nav ml-auto">
-                  <li className="nav-item py-0 px-0">
-                    <NavLink
-                      to={"/login"}
-                      className="nav-link"
-                      activeClassName="active-link"
-                    >
+                                    </NavLink>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        ) : (
+                            <div className="navbar-nav ml-auto">
+                                <li className="nav-item py-0 px-0">
+                                    <NavLink
+                                        to={"/login"}
+                                        className="nav-link"
+                                        activeClassName="active-link"
+                                    >
                       <span className="text-light">
                         <i className="fa-solid fa-right-to-bracket"></i>&nbsp;
-                        {t("menu.log_in")}
+                          {t("menu.log_in")}
                       </span>
-                    </NavLink>
-                  </li>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <li className="nav-item py-0 px-0">
-                    <NavLink
-                      to={"/register"}
-                      className="nav-link"
-                      activeClassName="active-link"
-                    >
+                                    </NavLink>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <li className="nav-item py-0 px-0">
+                                    <NavLink
+                                        to={"/register"}
+                                        className="nav-link"
+                                        activeClassName="active-link"
+                                    >
                       <span className="text-light">
                         <i className="fa-solid fa-user-plus"></i>&nbsp;
-                        {t("menu.sign_up")}
+                          {t("menu.sign_up")}
                       </span>
-                    </NavLink>
-                  </li>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-              )}
-              <Dropdown
-                placeholder="Select Language"
-                fluid
-                selection
-                defaultValue={
-                  localStorage.getItem("language")
-                    ? localStorage.getItem("language")
-                    : "vi"
-                }
-                options={countryOptions}
-                style={{ width: "60px" }}
-                onChange={handleClick}
-              />
-            </div>
-          </nav>
+                                    </NavLink>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        )}
+                        <Dropdown
+                            placeholder="Select Language"
+                            fluid
+                            selection
+                            defaultValue={
+                                localStorage.getItem("language")
+                                    ? localStorage.getItem("language")
+                                    : "vi"
+                            }
+                            options={countryOptions}
+                            style={{width: "60px"}}
+                            onChange={handleClick}
+                        />
+                    </div>
+                </nav>
 
-          <section
-            style={{
-              backgroundColor: "#e9ecef",
-              minHeight: "calc(100vh - 115px)",
-            }}
-          >
-            <Switch>
-              <Route exact path="/orders" component={Order} />
-              <Route exact path="/orders/:id" component={Restaurant} />
-              <Route exact path="/cart" component={Cart} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/profile" component={Profile} />
-              <Route path="/user" component={BoardUser} />
-              <Route path="/user-management" component={BoardAdmin} />
-              <Route path="/restaurant-management" component={BoardOrderer} />
-              <Route path="/" component={Login} />
-            </Switch>
-          </section>
-        </Router>
-        <footer style={{ backgroundColor: "#e9ecef" }}>
-          <p className="text-center pb-3 pt-3 font-weight-bold">
-            Copyright © 2022 Nitro Tech Asia Inc
-          </p>
-        </footer>
-      </div>
+                <section
+                    style={{
+                        backgroundColor: "#e9ecef",
+                        minHeight: "calc(100vh - 115px)",
+                    }}
+                >
+                    <Switch>
+                        <Route exact path="/orders" component={Order}/>
+                        <Route exact path="/orders/:id" component={Restaurant}/>
+                        <Route exact path="/cart" component={Cart}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route exact path="/profile" component={Profile}/>
+                        <Route path="/user" component={BoardUser}/>
+                        <Route path="/user-management" component={BoardAdmin}/>
+                        <Route path="/restaurant-management" component={BoardOrderer}/>
+                        <Route path="/" component={Login}/>
+                    </Switch>
+                </section>
+            </Router>
+            <footer style={{backgroundColor: "#e9ecef"}}>
+                <p className="text-center pb-3 pt-3 font-weight-bold">
+                    Copyright © 2022 Nitro Tech Asia Inc
+                </p>
+            </footer>
+        </div>
     );
 };
 

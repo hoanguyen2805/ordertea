@@ -328,7 +328,7 @@ const BoardAdmin = (props) => {
                         />
                         <div className="input-group-append">
                             <button
-                                className="btn btn-primary"
+                                className="btn btn-primary ml-0"
                                 type="button"
                                 onClick={findByTitle}
                             >
