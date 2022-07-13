@@ -499,7 +499,7 @@ const Restaurant = () => {
                                     javascript:{const el = document.getElementById('quantity-value');
                                     el.innerText = parseInt(el.innerText) - 1>1?parseInt(el.innerText)-1:1;
                                     }"
-                                    class="btn btn-danger rounded-0"
+                                    class="ml-0 btn btn-danger rounded-0"
                                 >
                                     <i class="fa fa-minus"></i>
                                 </button>
@@ -606,7 +606,7 @@ const Restaurant = () => {
                                     const el = document.getElementById('quantity-value');
                                     el.innerText = parseInt(el.innerText) + 1<=20?parseInt(el.innerText)+1:20;
                                     }"
-                                    class="btn btn-success rounded-0"
+                                    class="ml-0 btn btn-success rounded-0"
                                 >
                                     <i class="fa fa-plus"></i>
                                 </button>
