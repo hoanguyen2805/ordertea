@@ -25,18 +25,32 @@ import Swal from "sweetalert2";
 import logo from './logo.png';
 import Notification from "./components/Notification";
 import PusherBrowser from "./services/pusher-notify-browser";
+import PaymentManager from "./components/PaymentManager";
+import OrderDetailService from "./services/order-details.service";
+import {COUNT_ORDERDETAIL_PENDING} from "./actions/types";
+
 
 const App = () => {
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [showOrdererBoard, setShowOrdererBoard] = useState(false);
     const [subscribeBrowserNotify, setSubscribeBrowserNotify] = useState(null);
     const {user: currentUser} = useSelector((state) => state.auth);
+    const paymentPending = useSelector((state) => state.paymentPending.count);
 
     const dispatch = useDispatch();
     const [isShow, setShow] = useState(true);
     const {t, i18n} = useTranslation();
 
+    const countPaymentPending = async () => {
+        let res = await OrderDetailService.countAllByPaidFalse();
+        if (res.status === 200) {
+            dispatch({type: COUNT_ORDERDETAIL_PENDING, payload: res.data.data})
+        }
+    }
+
+
     useEffect(() => {
+        console.log(paymentPending)
         if (localStorage.getItem("language") === null) {
             i18n.changeLanguage("vi");
             localStorage.setItem("language", "vi");
@@ -47,8 +61,8 @@ const App = () => {
             dispatch(getUserInfo());
         }
 
-        navigator.serviceWorker.register('/service-worker.js');
-
+        navigator.serviceWorker.register('serviceworker.js');
+        countPaymentPending();
 
     }, []);
 
@@ -169,6 +183,7 @@ const App = () => {
                                         activeClassName="active-link"
                                     >
                       <span className="text-light">
+
                         <i className="fa fa-cog"></i>&nbsp;
                           {t("menu.orderer_board")}
                       </span>
@@ -184,12 +199,28 @@ const App = () => {
                                         activeClassName="active-link"
                                     >
                       <span className="text-light">
+
                         <i className="fa fa-cog"></i>&nbsp;
                           {t("menu.admin_board")}
                       </span>
                                     </NavLink>
                                 </li>
                             )}
+                            <li className="nav-item py-0 px-0">
+                                <NavLink
+                                    to={"/payment"}
+                                    className="nav-link"
+                                    activeClassName="active-link"
+                                >
+                      <span className="text-light">
+
+                       <i className="fa-solid fa-dollar-sign"></i>&nbsp;
+                          {t("menu.payment")}
+                          {paymentPending!==0 && <p className={"payment-badge"}>{paymentPending}</p>}
+                      </span>
+                                </NavLink>
+
+                            </li>
                         </div>
 
                         {currentUser ? (
@@ -286,6 +317,7 @@ const App = () => {
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/profile" component={Profile}/>
                         <Route path="/user" component={BoardUser}/>
+                        <Route path="/payment" component={PaymentManager}/>
                         <Route path="/user-management" component={BoardAdmin}/>
                         <Route path="/restaurant-management" component={BoardOrderer}/>
                         <Route path="/" component={Login}/>

@@ -98,5 +98,18 @@ label {
     width: 100%;
 }
 
+.payment-badge{
+    background-color: #e24f4f;
+    display: inline-block;
+    margin-left: 2px;
+    padding: 1px 4px;
+    color: white;
+    border-radius: 50%;
+    min-width: 20px;
+    text-align: center;
+    position: relative;
+    top:-10px;
+    left: -2px;
+    font-size: 12px;
 
-/*TOOLTIPCSS*/
+}

@@ -12,8 +12,10 @@ import {useTranslation} from "react-i18next";
 import FileService from "../services/file.service"
 import UserService from "../services/user.service"
 import Loading from "./loading";
-import {updateUser} from "../actions/auth";
+import {getUserInfo, updateUser} from "../actions/auth";
 import verifyPermissionUser from "./verifyPermissionUser";
+import Button from "react-bootstrap/Button";
+import Payment from "./Payment";
 
 const TYPE = {
     ALL: "ALL",
@@ -36,6 +38,7 @@ const Profile = () => {
     const [filterType, setFilterType] = useState(null);
     const [loading, setLoading] = useState(1);
     const dispatch = useDispatch();
+    const [reloadPayment, setReloadPayment] = useState(1);
     const {t} = useTranslation();
     const LOADINGS = [
         null,
@@ -54,6 +57,7 @@ const Profile = () => {
         })
     }
 
+
     useEffect(() => {
         if (filterType) {
             document.getElementById("toggleModal").click();
@@ -62,7 +66,7 @@ const Profile = () => {
 
 
     const handleClickOutInputFullName = (e) => {
-        if(!e.target.classList.contains("target-out")){
+        if (!e.target.classList.contains("target-out")) {
             cancelEditFullname()
         }
     }
@@ -147,8 +151,8 @@ const Profile = () => {
                     dispatch(updateUser(res.data));
                     Swal.fire({
                         title: t("profile.change_info_success"),
-                        icon:"success" ,
-                        showConfirmButton:true
+                        icon: "success",
+                        showConfirmButton: true
                     });
                 } else {
                     Swal.fire("Cannot change avatar", "", "error");
@@ -200,7 +204,7 @@ const Profile = () => {
     };
 
     const cancelEditFullname = () => {
-        formRef.current.updateInputsWithValue({fullname:currentUser.fullName})
+        formRef.current.updateInputsWithValue({fullname: currentUser.fullName})
         setEditFullName(false);
     };
 
@@ -232,27 +236,28 @@ const Profile = () => {
 
                     <div className="profile__header">
                         <div className="profile__account">
-                           <FormInput name={"fullname"} className="target-out profile__username" readOnly={!isEditFullName}
-                                                      type={"text"}
-                                                      validations="minLength:3,isExisty,isRequired,maxLength:100"
-                                                      validationErrors={{
-                                                          minLength: t("profile.fullname_invalid"),
-                                                          maxLength: t("profile.fullname_invalid"),
-                                                          isRequired: t("profile.fullname_required"),
-                                                      }}
-                                                      value={currentUser.fullName && currentUser.fullName.length > 0 ? currentUser.fullName : currentUser.username}/>
-                            <div
+                            <FormInput name={"fullname"} className="target-out profile__username"
+                                       readOnly={!isEditFullName}
+                                       type={"text"}
+                                       validations="minLength:3,isExisty,isRequired,maxLength:100"
+                                       validationErrors={{
+                                           minLength: t("profile.fullname_invalid"),
+                                           maxLength: t("profile.fullname_invalid"),
+                                           isRequired: t("profile.fullname_required"),
+                                       }}
+                                       value={currentUser.fullName && currentUser.fullName.length > 0 ? currentUser.fullName : currentUser.username}/>
+                            <di
                                 className={"profile-button  target-out"}
                                 style={{
                                     marginLeft: 5,
                                     cursor: canSubmit ? "pointer" : "not-allowed",
                                 }}
-                                onClick={(e) => canSubmit?handleEditFullName():null}
+                                onClick={(e) => canSubmit ? handleEditFullName() : null}
                             >
                                 {isEditFullName ?
                                     <i className={`target-out fa-regular fa-circle-check ${canSubmit ? 'text-success' : 'text-secondary'}`}></i> :
                                     <i className="target-out fa-regular fa-pen-to-square"></i>}
-                            </div>
+                            </di>
                             {isEditFullName && <div
                                 className={"target-out profile-button"}
                                 style={{
@@ -426,8 +431,16 @@ const Profile = () => {
                             </div>
                         </div>
                     )}
+                    <div className={"profile-email banking-payment-info"}>
+                        <i className="profile__icon fa-solid fa-wallet"></i>
+                        {t("profile.banking_payment")} : {currentUser.bankingPaymentInfoList?.length}
+                        <Button className={"btn btn-sm ml-2"}
+                                onClick={e => document.getElementById("toggleModalPayment").click()}>{t("profile.manager")}</Button>
+                    </div>
                 </div>
+
             </Formsy>
+
             {filterType && (
                 <HistoryComponent
                     type={filterType}
@@ -439,8 +452,92 @@ const Profile = () => {
                 data-bs-target="#historyModal"
                 id={"toggleModal"}
             ></div>
+
+            <div
+                data-bs-toggle="modal"
+                data-bs-target="#paymentModal"
+                id={"toggleModalPayment"}
+            ></div>
+            {reloadPayment &&
+            <ModalPayment reloadPayment={reloadPayment} reload={e => setReloadPayment(reloadPayment + 1)}/>}
         </div>
 };
+
+
+function ModalPayment(props) {
+    const [qrcodeUrl, setQrcodeUrl] = useState(1);
+    const {t} = useTranslation();
+
+    const submitClose = (url) => {
+        setQrcodeUrl(url);
+    }
+
+    useEffect(() => {
+        console.log(qrcodeUrl)
+    }, [props.reloadPayment, qrcodeUrl])
+
+    const confirmBeforeClose = async () => {
+        getUserInfo();
+        document.getElementById("close-from-banking-button") && document.getElementById("close-from-banking-button").click()
+        document.getElementById("close-modal").click()
+    }
+
+    return (<div
+        className="modal hide fade "
+        id="paymentModal"
+        data-bs-backdrop="static"
+        tabIndex="-1"
+        data-keyboard="false"
+        aria-labelledby="exampleModalLabel2"
+        aria-hidden="true"
+    >
+        <div className="modal-dialog modal-lg modal-dialog-centered">
+            <div className="modal-content" style={{minHeight: '50vh'}}>
+                <div className="modal-header">
+                    <h6
+                        className="modal-title"
+                        id="exampleModalLabel"
+                        style={{
+                            color: "#4b7ae3",
+                            fontSize: 20,
+                            flex: 1,
+                            justifyItems: "flex-start",
+                        }}
+                    >
+                        {t("profile.banking_payment")}
+                    </h6>
+                    <div
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                        style={{margin: 5}}
+                        aria-label="Close"
+                    >
+                        <i className="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+                <div className="modal-body">
+                    <Payment submitClose={submitClose}/>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" style={{width: "100px"}}
+                            className="btn btn-secondary" onClick={confirmBeforeClose}>{t("profile.close")}</button>
+                    <button
+                        hidden
+                        type="button"
+                        className="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                        style={{width: "100px"}}
+                        id={"close-modal"}
+                        onClick={e => props.reload()}
+                    >
+                        {t("profile.close")}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>)
+}
 
 function HistoryComponent(props) {
     const {t} = useTranslation();

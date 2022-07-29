@@ -7,7 +7,8 @@
         "log_out": "Đăng xuất",
         "log_in": "Đăng nhập",
         "sign_up": "Đăng ký",
-        "admin_board": "Quản lý Người dùng"
+        "admin_board": "Quản lý Người dùng",
+        "payment": "Thanh toán"
     },
     "register" : {
         "error_required": "Ô này là bắt buộc!",
@@ -96,7 +97,10 @@
         "change_info_success": "Cập nhật thông tin thành công",
         "change_info_error": "Cập nhật thông tin không thành công",
         "fullname_required": "Tên đầy đủ bắt buộc",
-        "fullname_invalid": "Tên đầy không hợp lệ. Yêu cầu từ 3-100 ký tự"
+        "fullname_invalid": "Tên đầy không hợp lệ. Yêu cầu từ 3-100 ký tự",
+        "banking_payment": "Phương thức thanh toán",
+        "manager": "Quản lý"
+
     },
     "order": {
         "loading_data": "ĐANG TẢI DỮ LIỆU",
@@ -153,6 +157,50 @@
         "is_closed": "đã đóng",
         "order_confirm": "chưa xác nhận. Vui lòng xác nhận",
         "order_store": "Đơn hàng của bạn tại cửa hàng",
-        "order_payment": "hết thời gian. Tổng số tiền bạn phải trả là "
+        "order_payment": "hết thời gian. Tổng số tiền bạn phải trả là ",
+        "user": "Người dùng",
+        "requestedPayment": "đã thực hiện thanh toán. Hãy kiểm tra và cập nhật trạng thái cho đơn hàng",
+        "check": "Đi tới đơn hàng",
+        "approvedPayment": "đã xác nhận thanh toán cho đơn hàng",
+        "rejectPayment": "đã từ chối xác nhận thanh toán cho đơn hàng",
+        "rejectPaymentCheck": "Vui lòng kiểm tra lại",
+        "total": "tổng"
+    },
+    "payment": {
+        "remove": "Xóa",
+        "ok": "Xác nhận",
+        "cancel": "Hủy bỏ",
+        "accountNo": "Số tài khoản",
+        "accountName": "Tên tài khoản",
+        "validation": {
+            "accountNoIsNotValid": "Số tài khoản hợp lệ 4 - 30 số",
+            "accountNoRequired": "Số tài khoản bắt buộc",
+            "accountNameIsNotValid": "Tên tài khoản hợp lệ 4 - 30 ký tự",
+            "accountNameRequired": "Tên tài khoản bắt buộc"
+        },
+        "delete_payment": "Xoá phương thức thanh toán",
+        "delete_success": "Xoá phương thức thanh toán thành công",
+        "payment_create": "Tạo phương thức thanh toán",
+        "payment_update": "Cập nhật phương thức thanh toán",
+        "payment_create_success": "Tạo phương thức thanh toán thành công",
+        "payment_update_success": "Cập nhật phương thức thanh toán thành công",
+        "paymentPending": "Chờ thanh toán",
+        "time": "Thời gian",
+        "productName": "Tên sản phẩm",
+        "price": "Giá",
+        "quantity": "SL",
+        "total": "Tổng",
+        "pay": "Thanh toán",
+        "notify": "Báo thanh toán",
+        "bankingPayment": "Phương thức thanh toán",
+        "noPayment": "Không có phương thức thanh toán. Vui lòng liên hệ người tạo đơn.",
+        "sendNotify": "Gửi thông báo đã thanh toán cho người tạo đơn?",
+        "notifySuccess": "Gửi thông báo thành công",
+        "clickToAdd": "Thêm mới"
+
+    },
+    "orderDetail": {
+        "approve": "Xác nhận",
+        "disapprove": "Từ chối"
     }
 }

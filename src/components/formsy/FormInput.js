@@ -28,7 +28,7 @@ function FormInput(props) {
     }
     return (
         <div style={{display: 'flex', flexDirection: 'column', position: "relative", width: '240px'}}>
-            <input readOnly={props?.readOnly||false}  type={!showPass?"password":"text"} onChange={e => changeValue(e)}  value={props?.value || ''} className={props?.className || ''}/>
+            <input readOnly={props?.readOnly||false}  type={!showPass?"password":props.type||"text"} onChange={e => changeValue(e)}  value={props?.value || ''} className={props?.className || ''} {...props}/>
             {props?.isPassword && switchEye()}
             <span style={{
                 fontSize: '12px',

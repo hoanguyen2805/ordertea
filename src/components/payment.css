@@ -1,0 +1,90 @@
+.banking-manager-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.banking-manager-container .banking-item {
+    margin: 5px 5px 5px 0;
+    border: 1px black solid;
+    height: 50px;
+    cursor: pointer;
+}
+
+.banking-manager-container .add-item :hover, .banking-manager-container .banking-item :hover {
+    cursor: pointer;
+
+}
+.banking-manager-container .add-item{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.banking-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.banking-form-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.banking-form-action button {
+    width: 100px;
+    margin-left: 5px;
+}
+
+.banking-form-upload {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.banking-manager-container .payment-active {
+    border: solid 2px green;
+}
+
+.payment-pending-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.payment-item .payment-title {
+    font-weight: 600;
+}
+
+.payment-item-active {
+    background-color: #b7c8ec;
+}
+
+.currency-value {
+    font-size: 12px;
+}
+
+.form-qrcode {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.form-qrcode input{
+    width: 100%;
+}
+.form-qrcode label{
+    flex: 1;
+}
