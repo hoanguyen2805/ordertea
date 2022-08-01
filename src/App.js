@@ -50,7 +50,7 @@ const App = () => {
 
 
     useEffect(() => {
-        console.log(paymentPending)
+        //console.log(paymentPending)
         if (localStorage.getItem("language") === null) {
             i18n.changeLanguage("vi");
             localStorage.setItem("language", "vi");
@@ -59,11 +59,12 @@ const App = () => {
         }
         if (localStorage.getItem("user")) {
             dispatch(getUserInfo());
+            countPaymentPending();
+
         }
 
-        navigator.serviceWorker.register('serviceworker.js');
-        countPaymentPending();
-
+        navigator.serviceWorker.register('service-worker.js');
+        
     }, []);
 
     const countryOptions = [
