@@ -66,6 +66,15 @@ const multiDataSetG = [
                 },
             },
             {
+                title: "Đã trả tiền",
+                width: { wpx: 120 },
+                style: {
+                    fill: { patternType: "solid", fgColor: { rgb: "FF2056fc" } },
+                    font: { color: { rgb: "FFf7f7f7" }, bold: true },
+                    alignment: { horizontal: "center" },
+                },
+            },
+            {
                 title: "Số lượng",
                 width: {wpx: 60},
                 style: {
@@ -81,15 +90,6 @@ const multiDataSetG = [
                     fill: {patternType: "solid", fgColor: {rgb: "FF2056fc"}},
                     font: {color: {rgb: "FFf7f7f7"}, bold: true},
                     alignment: {horizontal: "center"},
-                },
-            },
-            {
-                title: "Trả tiền",
-                width: { wpx: 100 },
-                style: {
-                    fill: { patternType: "solid", fgColor: { rgb: "FF2056fc" } },
-                    font: { color: { rgb: "FFf7f7f7" }, bold: true },
-                    alignment: { horizontal: "center" },
                 },
             },
             
@@ -148,19 +148,80 @@ const OrderDetail = () => {
                                 value: index + 1,
                                 style: {
                                     alignment: {horizontal: "center"},
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000" } },
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
                                 },
                             },
                             {
                                 value: item.user.fullName
                                     ? item.user.fullName
                                     : item.user.username,
+                                style: {
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000" } },
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
+                                },
                             },
-                            {value: item.product.name},
-                            {value: item.description ? item.description : ""},
+                            {
+                                value: item.product.name,
+                                style: {
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000" } },
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
+                                },
+                            },
+                            {
+                                value: item.description ? item.description : "",
+                                style: {
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000" } },
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
+                                },
+                            },
+                            {
+                                value: item.paid
+                                    ? "✓"
+                                    : "✗",
+                                style: {
+                                    font: { color: { rgb: item.paid ? "FF00d66b" : "FFf23c4b" }, bold: true },
+                                    alignment: { horizontal: "center" },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000"}},
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
+                                },
+                            },
                             {
                                 value: item.quantity,
                                 style: {
                                     alignment: {horizontal: "center"},
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000" } },
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
                                 },
                             },
                             {
@@ -169,14 +230,13 @@ const OrderDetail = () => {
                                     : item.product.price.value * item.quantity,
                                 style: {
                                     alignment: {horizontal: "center"},
-                                },
-                            },
-                            {
-                                value: item.paid
-                                    ? "Đã trả"
-                                    : "Chưa trả",
-                                style: {
-                                    alignment: { horizontal: "center" },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    border: {
+                                        top: { style: "thin", color: { rgb: "FF000000" } },
+                                        right: { style: "thin", color: { rgb: "FF000000" } },
+                                        bottom: { style: "thin", color: { rgb: "FF000000" } },
+                                        left: { style: "thin", color: { rgb: "FF000000" } },
+                                    }
                                 },
                             },
                         ]);
@@ -192,18 +252,34 @@ const OrderDetail = () => {
                 var totalQuantity = 0;
                 data.map((item) => {
                     item[0].value = i;
-                    totalPrice = totalPrice + item[5].value;
-                    totalQuantity = totalQuantity + item[4].value;
-                    item[5].value = item[5].value.toLocaleString("en-US") + "đ";
+                    totalPrice = totalPrice + item[6].value;
+                    totalQuantity = totalQuantity + item[5].value;
+                    item[6].value = item[6].value.toLocaleString("en-US") + "đ";
                     i++;
                     return item;
                 });
 
                 data.push([
-                    {value: ""},
-                    {value: ""},
-                    {value: ""},
-                    {value: ""},
+                    {
+                        value: "",
+                        style: {fill: { patternType: "solid", fgColor: { rgb: "FF044263" } }},    
+                    },
+                    {
+                        value: "",
+                        style: { fill: { patternType: "solid", fgColor: { rgb: "FF044263" } } },
+                    },
+                    {
+                        value: "",
+                        style: { fill: { patternType: "solid", fgColor: { rgb: "FF044263" } } },
+                    },
+                    {
+                        value: "",
+                        style: { fill: { patternType: "solid", fgColor: { rgb: "FF044263" } } },
+                    },
+                    {
+                        value: "",
+                        style: { fill: { patternType: "solid", fgColor: { rgb: "FF044263" } } },
+                    },
                     {
                         value: totalQuantity,
                         style: {
