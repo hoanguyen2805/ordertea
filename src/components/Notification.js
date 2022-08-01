@@ -156,7 +156,7 @@ const Notification = () => {
                     </div>
                 </>
             );
-        } else if (notification.message === "WARNING") {
+        } else if (notification.message === "TIMEOUT") {
             return (
                 <>
                     <img src="/done-order.png" alt=""/>

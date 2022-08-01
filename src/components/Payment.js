@@ -295,7 +295,7 @@ function Payment(props) {
 
         </div>
     );
-};
+}
 
 
 export default Payment;

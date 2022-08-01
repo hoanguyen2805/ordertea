@@ -5,6 +5,7 @@ import PaymentPending from "./PaymentPending";
 import PaymentService from "../services/payment.service";
 import Loading from "./loading";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
 
 
 PaymentManager.propTypes = {};
@@ -21,7 +22,7 @@ function PaymentManager(props) {
         null,
         t("profile.loading_data"),
     ];
-
+    const paymentPending = useSelector((state) => state.paymentPending.count);
     const getAllPaymentsByOrderId = async (id) => {
         setLoading(1)
         try {
@@ -37,9 +38,9 @@ function PaymentManager(props) {
     }
 
     const createQrcode = async (pm) => {
-        if(orderDetail){
+        if (orderDetail) {
             setLoading(1);
-            let total = orderDetail.quantity*(orderDetail.product?.discount_price?.value||orderDetail.product?.price?.value);
+            let total = orderDetail.quantity * (orderDetail.product?.discount_price?.value || orderDetail.product?.price?.value);
             try {
                 let res = await PaymentService.createQrcode({
                     bin: pm.bin,
@@ -75,10 +76,17 @@ function PaymentManager(props) {
 
     return (
         <div className={"container-fluid pt-4"}>
+
             <div className={"row"}>
                 {loading !== 0 && <Loading info={LOADINGS[loading]}/>}
+                {paymentPending === 0 && <div className={"col-md-12"}>
+                    <div className={"text-center"} style={{textAlign: "center", marginTop: '20%'}}>
+                        <h6>{t("payment.noOrder")}</h6></div>
+
+                </div>}
+
                 <div className={"col-md-7 offset-1"}>
-                    <PaymentPending  submitOrder={submitOrder}/>
+                    <PaymentPending submitOrder={submitOrder}/>
                 </div>
                 {orderDetail && orderPayments &&
                 <div className={"col-md-3"}>
@@ -99,7 +107,7 @@ function PaymentManager(props) {
                         </div>}
                     </div>
                     <div className={"mt-3"}>
-                        {loadingQR  ? <div>LOADING</div> : <img width={"100%"} style={{margin: "0%"}}
+                        {loadingQR ? <div>LOADING</div> : <img width={"100%"} style={{margin: "0%"}}
                                                                src={qrCode}/>}
                     </div>
                 </div>}

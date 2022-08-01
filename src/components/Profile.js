@@ -459,25 +459,17 @@ const Profile = () => {
                 id={"toggleModalPayment"}
             ></div>
             {reloadPayment &&
-            <ModalPayment reloadPayment={reloadPayment} reload={e => setReloadPayment(reloadPayment + 1)}/>}
+            <ModalPayment />}
         </div>
 };
 
 
 function ModalPayment(props) {
-    const [qrcodeUrl, setQrcodeUrl] = useState(1);
+    const dispatch = useDispatch();
     const {t} = useTranslation();
 
-    const submitClose = (url) => {
-        setQrcodeUrl(url);
-    }
-
-    useEffect(() => {
-        console.log(qrcodeUrl)
-    }, [props.reloadPayment, qrcodeUrl])
-
-    const confirmBeforeClose = async () => {
-        getUserInfo();
+     const confirmBeforeClose = async () => {
+        dispatch(getUserInfo());
         document.getElementById("close-from-banking-button") && document.getElementById("close-from-banking-button").click()
         document.getElementById("close-modal").click()
     }
@@ -517,7 +509,7 @@ function ModalPayment(props) {
                     </div>
                 </div>
                 <div className="modal-body">
-                    <Payment submitClose={submitClose}/>
+                    <Payment />
                 </div>
                 <div className="modal-footer">
                     <button type="button" style={{width: "100px"}}
@@ -529,7 +521,6 @@ function ModalPayment(props) {
                         data-bs-dismiss="modal"
                         style={{width: "100px"}}
                         id={"close-modal"}
-                        onClick={e => props.reload()}
                     >
                         {t("profile.close")}
                     </button>

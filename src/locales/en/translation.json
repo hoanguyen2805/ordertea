@@ -7,7 +7,8 @@
         "log_out": "Sign Out",
         "log_in": "Sign In",
         "sign_up": "Sign Up",
-        "admin_board": "User management"
+        "admin_board": "User management",
+        "payment": "Payment"
     },
     "register" : {
         "error_required": "This field is required!",
@@ -155,5 +156,43 @@
         "order_confirm": "don't confirm. Please confirm",
         "order_store": "Your order at the store",
         "order_payment": "is time out. Total bill you should payment is "
+    },
+    "payment": {
+        "remove": "Delete",
+        "ok": "OK",
+        "cancel": "Cancel",
+        "accountNo": "Account No",
+        "accountName": "Account Name",
+        "validation": {
+            "accountNoIsNotValid": "Account No is not valid ( 4- 30 numbers)",
+            "accountNoRequired": "Account No is required",
+            "accountNameIsNotValid": "Account Name is not valid ( 4- 30 characters)",
+            "accountNameRequired": "Account Name is required"
+        },
+        "delete_payment": "Remove payment",
+        "delete_success": "Remove payment successfully",
+        "payment_create": "Create payment",
+        "payment_update": "Update payment",
+        "payment_create_success": "Create payment successfully",
+        "payment_update_success": "Update payment successfully",
+        "paymentPending": "Payment pending",
+        "time": "Time",
+        "productName": "Product Name",
+        "price": "Price",
+        "quantity": "Quantity",
+        "total": "Total",
+        "pay": "Pay",
+        "notify": "Notify",
+        "bankingPayment": "Banking payment",
+        "noPayment": "No banking payment has been created. Please contact with owner",
+        "sendNotify": "Send a notification to the owner of the order?",
+        "notifySuccess": "Send notification successfully",
+        "clickToAdd": "Add new",
+        "noOrder": "No orders waiting for payment"
+
+    },
+    "orderDetail": {
+        "approve": "Approve",
+        "disapprove": "Disapprove"
     }
 }

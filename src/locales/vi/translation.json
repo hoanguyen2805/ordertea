@@ -196,7 +196,8 @@
         "noPayment": "Không có phương thức thanh toán. Vui lòng liên hệ người tạo đơn.",
         "sendNotify": "Gửi thông báo đã thanh toán cho người tạo đơn?",
         "notifySuccess": "Gửi thông báo thành công",
-        "clickToAdd": "Thêm mới"
+        "clickToAdd": "Thêm mới",
+        "noOrder": "Không có đơn hàng nào đang chờ thanh toán"
 
     },
     "orderDetail": {

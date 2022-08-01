@@ -83,6 +83,16 @@ const multiDataSetG = [
                     alignment: {horizontal: "center"},
                 },
             },
+            {
+                title: "Trả tiền",
+                width: { wpx: 100 },
+                style: {
+                    fill: { patternType: "solid", fgColor: { rgb: "FF2056fc" } },
+                    font: { color: { rgb: "FFf7f7f7" }, bold: true },
+                    alignment: { horizontal: "center" },
+                },
+            },
+            
         ],
         data: null,
     },
@@ -159,6 +169,14 @@ const OrderDetail = () => {
                                     : item.product.price.value * item.quantity,
                                 style: {
                                     alignment: {horizontal: "center"},
+                                },
+                            },
+                            {
+                                value: item.paid
+                                    ? "Đã trả"
+                                    : "Chưa trả",
+                                style: {
+                                    alignment: { horizontal: "center" },
                                 },
                             },
                         ]);

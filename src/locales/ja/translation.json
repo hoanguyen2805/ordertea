@@ -7,7 +7,8 @@
         "log_out": "ログアウト",
         "log_in": "ログイン",
         "sign_up": "登録",
-        "admin_board": "ユーザー管理"
+        "admin_board": "ユーザー管理",
+        "payment": "Thanh toán"
     },
     "register" : {
         "error_required": "この項目は必須です!",
@@ -154,5 +155,43 @@
         "order_confirm": "まだ確認していないので、ご確認くだいませ。",
         "order_store": "こちらはストアにあなたのオーダーです。",
         "order_payment": "タイムアウトになりました。あなたの合計お支払い金額は"
+    },
+    "payment": {
+        "remove": "Xóa",
+        "ok": "Xác nhận",
+        "cancel": "Hủy bỏ",
+        "accountNo": "Số tài khoản",
+        "accountName": "Tên tài khoản",
+        "validation": {
+            "accountNoIsNotValid": "Số tài khoản hợp lệ 4 - 30 số",
+            "accountNoRequired": "Số tài khoản bắt buộc",
+            "accountNameIsNotValid": "Tên tài khoản hợp lệ 4 - 30 ký tự",
+            "accountNameRequired": "Tên tài khoản bắt buộc"
+        },
+        "delete_payment": "Xoá phương thức thanh toán",
+        "delete_success": "Xoá phương thức thanh toán thành công",
+        "payment_create": "Tạo phương thức thanh toán",
+        "payment_update": "Cập nhật phương thức thanh toán",
+        "payment_create_success": "Tạo phương thức thanh toán thành công",
+        "payment_update_success": "Cập nhật phương thức thanh toán thành công",
+        "paymentPending": "Chờ thanh toán",
+        "time": "Thời gian",
+        "productName": "Tên sản phẩm",
+        "price": "Giá",
+        "quantity": "SL",
+        "total": "Tổng",
+        "pay": "Thanh toán",
+        "notify": "Báo thanh toán",
+        "bankingPayment": "Phương thức thanh toán",
+        "noPayment": "Không có phương thức thanh toán. Vui lòng liên hệ người tạo đơn.",
+        "sendNotify": "Gửi thông báo đã thanh toán cho người tạo đơn?",
+        "notifySuccess": "Gửi thông báo thành công",
+        "clickToAdd": "Thêm mới",
+        "noOrder": "Không có đơn hàng nào đang chờ thanh toán"
+
+    },
+    "orderDetail": {
+        "approve": "Xác nhận",
+        "disapprove": "Từ chối"
     }
 }
