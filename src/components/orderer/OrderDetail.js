@@ -148,7 +148,7 @@ const OrderDetail = () => {
                                 value: index + 1,
                                 style: {
                                     alignment: {horizontal: "center"},
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000" } },
                                         right: { style: "thin", color: { rgb: "FF000000" } },
@@ -162,7 +162,7 @@ const OrderDetail = () => {
                                     ? item.user.fullName
                                     : item.user.username,
                                 style: {
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000" } },
                                         right: { style: "thin", color: { rgb: "FF000000" } },
@@ -174,7 +174,7 @@ const OrderDetail = () => {
                             {
                                 value: item.product.name,
                                 style: {
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000" } },
                                         right: { style: "thin", color: { rgb: "FF000000" } },
@@ -186,7 +186,7 @@ const OrderDetail = () => {
                             {
                                 value: item.description ? item.description : "",
                                 style: {
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000" } },
                                         right: { style: "thin", color: { rgb: "FF000000" } },
@@ -202,7 +202,7 @@ const OrderDetail = () => {
                                 style: {
                                     font: { color: { rgb: item.paid ? "FF00d66b" : "FFf23c4b" }, bold: true },
                                     alignment: { horizontal: "center" },
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000"}},
                                         right: { style: "thin", color: { rgb: "FF000000" } },
@@ -215,7 +215,7 @@ const OrderDetail = () => {
                                 value: item.quantity,
                                 style: {
                                     alignment: {horizontal: "center"},
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000" } },
                                         right: { style: "thin", color: { rgb: "FF000000" } },
@@ -230,7 +230,7 @@ const OrderDetail = () => {
                                     : item.product.price.value * item.quantity,
                                 style: {
                                     alignment: {horizontal: "center"},
-                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff42d" } },
+                                    fill: { patternType: "solid", fgColor: { rgb: item.paid ? "FFffffff" : "FFfff896" } },
                                     border: {
                                         top: { style: "thin", color: { rgb: "FF000000" } },
                                         right: { style: "thin", color: { rgb: "FF000000" } },
