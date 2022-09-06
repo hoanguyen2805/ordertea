@@ -510,7 +510,7 @@ const Restaurant = () => {
                                     const el = document.getElementById('quantity-value');
                                     el.innerText = parseInt(el.innerText) + 1<=20?parseInt(el.innerText)+1:20;
                                     }"
-                                    class="btn btn-success rounded-0"
+                                    class="btn btn-success rounded-0 ml-0"
                                 >
                                     <i class="fa fa-plus"></i>
                                 </button>

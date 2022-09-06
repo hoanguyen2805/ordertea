@@ -6,7 +6,7 @@ import PaymentService from "../services/payment.service";
 import Loading from "./loading";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
-
+import verifyPermissionUser from "./verifyPermissionUser";
 
 PaymentManager.propTypes = {};
 
@@ -118,4 +118,4 @@ function PaymentManager(props) {
 }
 
 
-export default PaymentManager;
+export default verifyPermissionUser(PaymentManager);
