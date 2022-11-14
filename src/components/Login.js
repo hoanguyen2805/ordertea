@@ -128,6 +128,7 @@ const Login = (props) => {
 
     return (
         <div className="col-md-12 pt-5">
+            <img src="https://ec9b-118-69-61-21.ap.ngrok.io/advertise"/>
             <div className="card card-container mt-0">
                 <img
                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"

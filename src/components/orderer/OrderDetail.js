@@ -469,6 +469,7 @@ const OrderDetail = () => {
                             />
                         </div>
                     </div>
+                    <div class="table-responsive">
                     <table className="table table-striped">
                         <thead>
                         <tr>
@@ -568,6 +569,7 @@ const OrderDetail = () => {
                         ))}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             )}
         </>
