@@ -108,7 +108,7 @@
 .product-restaurant__info {
     flex-basis: 0;
     flex-grow: 1;
-    max-width: 100%;
+    width: calc(100% - 165px);
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -128,6 +128,7 @@
     display: block;
     padding-top: 5px;
     line-height: 22px;
+    overflow-wrap: break-word;
 }
 
 .product-restaurant__more {
